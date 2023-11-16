@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
   void UpdateScoreText()
   {
     if (scoreText)
-      scoreText.text = "Score: " + score;
+      scoreText.text = "Score: " + score + "/" + scoreToWin;
   }
 
   void UpdateLevelText()
@@ -63,11 +63,19 @@ public class GameController : MonoBehaviour
 
       level++;
       score = 0;
+      scoreToWin *= 2;
       UpdateScoreText();
       UpdateLevelText();
       cookieSpawner.numberOfCookies = level;
       cookieSpawner.SpawnCookies();
     }
-    else if (score > scoreToWin) scoreText.text = "Вы проиграли :(";
+    else if (score > scoreToWin)
+    {
+      scoreText.text = "Вы проиграли :(";
+      cookieSpawner.DestroyCookies();
+      score = 0;
+      
+      cookieSpawner.SpawnCookies();
+    }
   }
 }

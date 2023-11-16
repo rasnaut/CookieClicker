@@ -11,10 +11,11 @@ public class CookieSpawner : MonoBehaviour
 
   void Start()
   {
-    cookieArray = new GameObject[10];
+    
   }
   public void SpawnCookies()
   {
+    cookieArray = new GameObject[numberOfCookies];
     for (int index = 0; index < numberOfCookies; index++)
     {
       // Создаем печеньку и устанавливаем ее позицию
