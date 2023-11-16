@@ -5,13 +5,20 @@ using UnityEngine;
 public class GrannyController : MonoBehaviour
 {
   public float visibleTime = 5f;
+  int minusPoints = -5;
   private SpriteRenderer grannyRanderer = null;
+  private PolygonCollider2D collider2D = null;
   CookieController cookie = null;
+  GameController gameController = null;
   // Start is called before the first frame update
   void Start()
   {
     grannyRanderer = GetComponent<SpriteRenderer>();
     grannyRanderer.enabled = false;
+    collider2D = GetComponent<PolygonCollider2D>();
+    collider2D.enabled = false;
+
+    gameController = FindObjectOfType<GameController>();
   }
 
   // Update is called once per frame
@@ -37,12 +44,14 @@ public class GrannyController : MonoBehaviour
 
       grannyRanderer.enabled = true;
       cookie.setVisible(!grannyRanderer.enabled);
+      collider2D.enabled = true;
     }
   }
 
   void setGrannyInvisible()
   {
     grannyRanderer.enabled = false;
+    collider2D.enabled = false;
     visibleTime = 5f;
     cookie.setVisible(!grannyRanderer.enabled);
     cookie = null;
@@ -50,6 +59,6 @@ public class GrannyController : MonoBehaviour
 
   void OnMouseDown()
   {
-
+    gameController.AddScore(minusPoints);
   }
 }
